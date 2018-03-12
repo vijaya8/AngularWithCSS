@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {DataService} from '.././data.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-userprofile',
@@ -6,10 +8,44 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./userprofile.component.css']
 })
 export class UserprofileComponent implements OnInit {
+  userDetails: any[];
+  loggedInuser: any;
+  isUserEdited: boolean;
 
-  constructor() { }
+  constructor(private  dataService: DataService,
+              private router: Router) {
+
+    this.loggedInuser = JSON.parse(localStorage.getItem('userDeatils'));
+    // this.loggedInuser = this.dataService.userData;
+    console.log('loggedInuser', this.loggedInuser);
+    this.isUserEdited = false;
+  }
+
+
+  editUser(userEdited: boolean) {
+    this.isUserEdited = userEdited;
+  }
+
+  receiveMessage(event) {
+    this.isUserEdited = event.edited.useredited;
+    this.loggedInuser = event.edited;
+  }
+
+  logout() {
+    this.router.navigate(['']);
+  }
+
+
+  deleteUserData(userId: string) {
+    this.dataService.deleteUser(userId)
+      .subscribe(deleteduser => {
+        this.router.navigate(['']);
+      });
+  }
 
   ngOnInit() {
+
+
   }
 
 }

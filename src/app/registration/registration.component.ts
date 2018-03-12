@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from '.././data.service';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -9,35 +11,30 @@ import {DataService} from '.././data.service';
 export class RegistrationComponent implements OnInit {
   userInfo: any;
 
-  constructor(private dataservice: DataService) {
+  constructor(private dataservice: DataService,
+              private http: HttpClient,
+              private router: Router) {
   }
 
   submitUserDetails(userData: any) {
-    // console.log('....data', userData);
-    // this.userInfo = userData;
-    // this.dataservice.createUser(this.userInfo);
-    // this
-    //   .dataservice
-    //   .createUser(this.userInfo)
-    //   .subscribe(ressult => {
-    //     console.log('Result is', ressult);
-    //   }, (err) => {
-    //     console.log(err);
-    //   });
+    console.log('....data', userData);
     const body = {
-      'firstName': userData.name,
-      'lastName': userData.email,
-      'email': userData.department,
+      'firstName': userData.fname,
+      'lastName': userData.lname,
+      'userName': userData.userName,
+      'email': userData.email,
       'password': userData.password
     };
 
-   return this
+    return this
       .dataservice
-      .post('http://localhost:4000/registerusers',body)
-      .then((resp) => {
-        console.log('resp');
-      })
-      .catch(reject => console.log(reject));
+      .createUser(body)
+      .subscribe((resp) => {
+        this.router.navigate(['']);
+      }, (err: HttpErrorResponse) => {
+        console.log('in error block', err);
+      });
+
   }
 
   ngOnInit() {

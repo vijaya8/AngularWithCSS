@@ -12,6 +12,8 @@ import {LoadpageComponent} from './loadpage/loadpage.component';
 import {DataService} from './data.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {UserprofileComponent} from './userprofile/userprofile.component';
+import {EditComponent} from './edit/edit.component';
+import {LogoutComponent} from './logout/logout.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import {UserprofileComponent} from './userprofile/userprofile.component';
     LoginComponent,
     RegistrationComponent,
     LoadpageComponent,
-    UserprofileComponent
+    UserprofileComponent,
+    EditComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,17 @@ import {UserprofileComponent} from './userprofile/userprofile.component';
         },
         {
           path: 'userprofile',
-          component: UserprofileComponent
+          component: UserprofileComponent,
+          children: [
+            {
+              path: 'editUser',
+              component: EditComponent
+            }
+          ]
+        },
+        {
+          path: 'admin',
+          component: LogoutComponent
         }
       ])
   ],

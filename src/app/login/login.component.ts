@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from '.././data.service';
 import {Router} from '@angular/router';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -9,37 +10,35 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   userDetails: any[];
-  userData: any;
+  singleuserData: any;
 
-  constructor(private dataservice: DataService,
-              private router: Router) {
+  constructor(private dataService: DataService,
+              private router: Router,
+              private  http: HttpClient) {
   }
 
   login(loginData) {
-    console.log('usermail', loginData);
-    this.userDetails.forEach(user => {
-      if (user.email === loginData.useremail && user.password === loginData.userpassword) {
-        console.log('only once', user);
-        this.userData = user;
-        this.router.navigate(['userprofile']);
-      }
-    });
+    this.http.post('http://localhost:9000/users/login', loginData)
+      .subscribe(userLoginData => {
+        console.log('user success', userLoginData);
+        this.singleuserData = userLoginData;
+        this.dataService.userData = this.singleuserData;
+        const myObj = this.singleuserData;
+        localStorage.setItem('userDeatils', JSON.stringify(myObj));
+        if (this.singleuserData.username === 'admin') {
+          console.log('coming here if');
+          this.router.navigate(['admin']);
+        } else {
+          console.log('coming here else');
+          this.router.navigate(['userprofile']);
+        }
+
+      }, (err: HttpErrorResponse) => {
+        console.log(err);
+      });
   }
 
   ngOnInit() {
-    // this.dataservice.getUsers().subscribe(result => {
-    //   this.userDetails = result;
-    //   console.log(this.userDetails, 'this.userDetails');
-    // }, (err: HttpErrorResponse) => {
-    //   if (err.error instanceof Error) {
-    //     console.log('Client-side error occured.');
-    //   } else {
-    //     console.log('Server-side error occured.');
-    //   }
-    // });
 
-    this.dataservice.deleteUser('5a98ea041a41670b5762caff').subscribe(deleteUser => {
-      console.log('result in delete', deleteUser);
-    });
   }
 }

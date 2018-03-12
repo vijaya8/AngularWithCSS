@@ -1,19 +1,37 @@
 <div class="container">
-  <h2 style="color: darkgreen">User Data</h2>
+  <h2 style="color: darkgreen">User Dashboard!</h2>
   <table class="table">
     <thead>
     <tr>
       <th>Firstname</th>
       <th>Lastname</th>
       <th>Email</th>
+      <th>Edit</th>
+      <th>Delete</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-      <td>John</td>
-      <td>Doe</td>
-      <td>john@example.com</td>
+      <td>{{loggedInuser.fname}}</td>
+      <td>{{loggedInuser.lname}}</td>
+      <td>{{loggedInuser.email}}</td>
+      <td>
+        <button type="submit" class="btn btn-success" (click)="editUser(true)">Edit</button>
+      </td>
+      <td>
+        <button type="submit" class="btn btn-success" (click)="deleteUserData(loggedInuser._id)">Delete</button>
+      </td>
     </tr>
     </tbody>
   </table>
 </div>
+
+<div *ngIf="isUserEdited">
+  <app-edit (messageEvent)="receiveMessage($event)"></app-edit>
+</div>
+
+<div class="logout">
+  <button type="submit" class="btn btn-success" (click)="logout()">LogOut</button>
+</div>
+
+

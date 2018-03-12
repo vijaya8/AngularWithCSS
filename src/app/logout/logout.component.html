@@ -1,0 +1,24 @@
+<div class="container">
+  <h2 style="color: darkgreen;text-align: center">Admin Dashboard!</h2>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let u of totalUsers ">
+      <td>{{u.fname}}</td>
+      <td>{{u.lname}}</td>
+      <td>{{u.email}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="logout">
+  <button type="submit" class="btn btn-success" (click)="logout()">LogOut</button>
+</div>
+
