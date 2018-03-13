@@ -8,16 +8,12 @@ import {Router} from '@angular/router';
   styleUrls: ['./userprofile.component.css']
 })
 export class UserprofileComponent implements OnInit {
-  userDetails: any[];
   loggedInuser: any;
   isUserEdited: boolean;
 
   constructor(private  dataService: DataService,
               private router: Router) {
 
-    this.loggedInuser = JSON.parse(localStorage.getItem('userDeatils'));
-    // this.loggedInuser = this.dataService.userData;
-    console.log('loggedInuser', this.loggedInuser);
     this.isUserEdited = false;
   }
 
@@ -45,6 +41,8 @@ export class UserprofileComponent implements OnInit {
 
   ngOnInit() {
 
+    this.loggedInuser = JSON.parse(localStorage.getItem('userDetails'));
+    console.log('userloggedin', this.loggedInuser);
 
   }
 

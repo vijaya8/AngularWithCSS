@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
         this.singleuserData = userLoginData;
         this.dataService.userData = this.singleuserData;
         const myObj = this.singleuserData;
-        localStorage.setItem('userDeatils', JSON.stringify(myObj));
+        localStorage.setItem('userDetails', JSON.stringify(myObj));
         if (this.singleuserData.username === 'admin') {
           console.log('coming here if');
           this.router.navigate(['admin']);

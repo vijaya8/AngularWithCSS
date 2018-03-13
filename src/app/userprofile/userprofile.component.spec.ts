@@ -1,6 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { UserprofileComponent } from './userprofile.component';
+import {UserprofileComponent} from './userprofile.component';
+import {EditComponent} from '../edit/edit.component';
+import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {RouterTestingModule} from '@angular/router/testing';
+import {DataService} from '.././data.service';
 
 describe('UserprofileComponent', () => {
   let component: UserprofileComponent;
@@ -8,9 +13,11 @@ describe('UserprofileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserprofileComponent ]
+      imports: [FormsModule, HttpClientModule, RouterTestingModule],
+      declarations: [UserprofileComponent, EditComponent],
+      providers: [DataService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

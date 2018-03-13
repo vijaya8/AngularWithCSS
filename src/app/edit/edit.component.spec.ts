@@ -1,6 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {DataService} from '.././data.service';
 
-import { EditComponent } from './edit.component';
+import {EditComponent} from './edit.component';
 
 describe('EditComponent', () => {
   let component: EditComponent;
@@ -8,9 +11,11 @@ describe('EditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditComponent ]
+      imports: [FormsModule, HttpClientModule],
+      declarations: [EditComponent],
+      providers: [DataService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

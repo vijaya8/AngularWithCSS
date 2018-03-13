@@ -4,7 +4,7 @@ import {RegistrationComponent} from './registration.component';
 import {FormsModule} from '@angular/forms';
 import {DataService} from '.././data.service';
 import {HttpClientModule} from '@angular/common/http';
-import {RouterModule} from '@angular/router';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('RegistrationComponent', () => {
   let component: RegistrationComponent;
@@ -12,7 +12,7 @@ describe('RegistrationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, HttpClientModule, RouterModule],
+      imports: [FormsModule, HttpClientModule, RouterTestingModule],
       providers: [DataService],
       declarations: [RegistrationComponent]
     })

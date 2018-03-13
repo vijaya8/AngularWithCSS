@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';
@@ -21,6 +21,7 @@ export class DataService {
   userData: IUserData;
   apiUrl = 'http://localhost:4000/registerusers';
 
+
   constructor(private http: HttpClient) {
   }
 
@@ -28,7 +29,7 @@ export class DataService {
     return this.http.get('http://localhost:9000/users/getAllUsers');
   }
 
-  createUser(userinfo) {
+  createUser(userinfo): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
@@ -69,7 +70,7 @@ export class DataService {
   }
 
   deleteUser(userId: string) {
-    return this.http.delete(`
-    http://localhost:9000/users/deleteUser/${userId}`);
+    const params = new HttpParams().set('id', userId);
+    return this.http.delete('http://localhost:9000/users/deleteUser', {params});
   }
 }
